@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int n = chars.size();
+        int index = 0; // index to track the position of the result
+        int i = 0;     // current index in the array
+
+        while (i < n) {
+            char current_char = chars[i];
+            int count = 0;
+
+            while (i < n && chars[i] == current_char) {
+                i++;
+                count++;
+            }
+            chars[index++] = current_char;
+
+            if (count > 1) {
+                int j = index;
+                while (count > 0) {
+                    chars[index++] = count % 10 + '0';
+                    count /= 10;
+                }
+                reverse(chars.begin() + j, chars.begin() + index);
+            }
+        }
+
+        return index;
+    }
+};
+//c++
