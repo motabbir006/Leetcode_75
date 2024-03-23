@@ -1,0 +1,12 @@
+class Solution(object):
+    def canPlaceFlowers(self, flowerbed, n):
+        i, count = 0, 0
+        flowerbed = [0] + flowerbed + [0]
+        
+        while i < len(flowerbed) - 1:
+            if flowerbed[i-1:i+2] == [0, 0, 0]:
+                flowerbed[i] = 1
+                count += 1
+            i += 1
+        
+        return count >= n
