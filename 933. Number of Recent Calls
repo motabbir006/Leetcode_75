@@ -1,0 +1,17 @@
+class RecentCounter {
+public:
+    RecentCounter() {
+        
+    }
+    
+    int ping(int t) {
+        while (!timestamps.empty() && timestamps.front() < t - 3000) {
+            timestamps.pop_front();
+        }
+        timestamps.push_back(t);
+        return timestamps.size();
+    }
+
+private:
+    std::deque<int> timestamps; 
+};
