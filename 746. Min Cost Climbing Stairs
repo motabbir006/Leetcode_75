@@ -1,0 +1,16 @@
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        n = len(cost)
+        
+        if n <= 1:
+            return 0
+        elif n == 2:
+            return min(cost[0], cost[1])
+        
+        prev, curr = cost[0], cost[1]
+        
+        for i in range(2, n):
+            next_step_cost = cost[i] + min(prev, curr)
+            prev, curr = curr, next_step_cost
+        
+        return min(prev, curr)
