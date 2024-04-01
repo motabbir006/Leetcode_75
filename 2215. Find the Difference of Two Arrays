@@ -1,0 +1,48 @@
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        List<Integer> a = uniqueDist(nums1, nums2);
+        List<Integer> b = uniqueDist(nums2, nums1);
+
+        return List.of(a, b);
+    }
+
+    private static List<Integer> uniqueDist(int[] nums1, int[] nums2) {
+        int lo = 0, n = nums1.length;
+        int hi = 0, m = nums2.length;
+        List<Integer> res = new ArrayList<>();
+        
+        while (lo < n) {
+            if (hi >= m) {
+                while (lo < n) addUnique(res, nums1[lo++]);
+            }
+
+            //less
+            if (lo < n && nums1[lo] < nums2[hi]) {
+                addUnique(res, nums1[lo++]);
+            }
+
+            //equals
+            while (lo < n && nums1[lo] == nums2[hi]) {
+                lo++;
+            }
+
+            //greate
+            while (lo < n && hi < m && nums1[lo] > nums2[hi]) {
+                hi++;
+            }
+        }
+
+        return res;
+    }
+
+    private static void addUnique(List<Integer> res, int a) {
+        if (res.isEmpty()) {
+            res.add(a);
+        } else if (res.get(res.size() - 1) != a) {
+            res.add(a);
+        }   
+    }
+}
