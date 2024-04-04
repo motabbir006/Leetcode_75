@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int rob(std::vector<int>& nums) {
+        int prevRobbed = 0, prevNotRobbed = 0;
+        
+        for (int num : nums) {
+            int currentRobbed = prevNotRobbed + num;
+            int currentNotRobbed = std::max(prevRobbed, prevNotRobbed);
+            prevNotRobbed = currentNotRobbed;
+            prevRobbed = currentRobbed;
+        }
+        
+        return std::max(prevRobbed, prevNotRobbed);
+    }
+};
