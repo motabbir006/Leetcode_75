@@ -1,0 +1,24 @@
+class Solution {
+List<List<String>> suggestedProducts(List<String> products, String searchWord) {
+  products.sort(); // Sort the products list lexicographically
+
+  List<List<String>> result = [];
+  String prefix = '';
+
+  for (int i = 0; i < searchWord.length; i++) {
+    prefix += searchWord[i];
+    List<String> suggestions = [];
+    
+    for (String product in products) {
+      if (product.startsWith(prefix)) {
+        suggestions.add(product);
+        if (suggestions.length == 3) break; // Limit suggestions to 3
+      }
+    }
+
+    result.add(suggestions);
+  }
+
+  return result;
+}
+}
