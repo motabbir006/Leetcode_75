@@ -1,0 +1,29 @@
+class Solution {
+ int longestCommonSubsequence(String text1, String text2) {
+  Map<String, int> memo = {};
+
+  // Define the recursive function
+  int lcs(int i, int j) {
+    if (i == text1.length || j == text2.length) {
+      return 0; 
+    }
+
+    // Check if the result is already memoized
+    int? memoizedResult = memo['$i,$j'];
+    if (memoizedResult != null) {
+      return memoizedResult;
+    }
+
+    // Recursive case: if characters match, add 1 to the result and proceed
+    if (text1[i] == text2[j]) {
+      return memo['$i,$j'] = 1 + lcs(i + 1, j + 1);
+    } else {
+ 
+      int skipText1 = lcs(i + 1, j);
+      int skipText2 = lcs(i, j + 1);
+      return memo['$i,$j'] = skipText1 > skipText2 ? skipText1 : skipText2;
+    }
+  }
+  return lcs(0, 0);
+}
+}
