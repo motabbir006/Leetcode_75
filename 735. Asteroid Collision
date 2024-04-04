@@ -1,0 +1,22 @@
+class Solution {
+List<int> asteroidCollision(List<int> asteroids) {
+  List<int> stack = [];
+
+  for (int asteroid in asteroids) {
+    bool shouldDestroy = false;
+
+    while (stack.isNotEmpty && asteroid < 0 && stack.last > 0) {
+      if (stack.last < -asteroid) {
+        stack.removeLast();
+        continue;
+      } else if (stack.last == -asteroid) {
+        stack.removeLast();
+      }
+      shouldDestroy = true;
+      break;
+    }
+    if (!shouldDestroy) {
+      stack.add(asteroid);
+    }
+  }
+  return stack; }}
