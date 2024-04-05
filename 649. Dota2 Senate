@@ -1,0 +1,26 @@
+class Solution {
+    public String predictPartyVictory(String senate) {
+        Queue<Integer> queue = new LinkedList<>();
+        int[] count = new int[2]; // Index 0: Radiant, Index 1: Dire
+        int[] ban = new int[2]; 
+
+        for (char senator : senate.toCharArray()) {
+            int party = senator == 'R' ? 0 : 1;
+            count[party]++;
+            queue.offer(party);
+        }
+
+        while (count[0] > 0 && count[1] > 0) {
+            int party = queue.poll();
+            if (ban[party] > 0) { 
+                ban[party]--;
+                count[party]--;
+            } else { 
+                ban[1 - party]++;
+                queue.offer(party);
+            }
+        }
+
+        return count[0] > 0 ? "Radiant" : "Dire";
+    }
+}
